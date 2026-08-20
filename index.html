@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexite | Ideas. Code. Growth.</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- GSAP for Advanced Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        /* ==================================================
+           VARIABLES & RESET
+           ================================================== */
+        :root {
+            --navy: #06233F;
+            --orange: #FF7A00;
+            --cyan: #13AFC3;
+            --white: #FFFFFF;
+            --light-grey: #F5F7FA;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --shadow-3d: 0 20px 40px rgba(6, 35, 63, 0.08);
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--navy);
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, var(--light-grey) 0%, var(--white) 100%);
+        }
+
+        h1, h2, h3, .display-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--navy);
+            color: var(--white);
+            box-shadow: 0 10px 20px rgba(6, 35, 63, 0.2);
+        }
+        .btn-primary:hover {
+            background: var(--orange);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(255, 122, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--navy);
+            border: 2px solid var(--navy);
+        }
+        .btn-secondary:hover {
+            background: var(--cyan);
+            border-color: var(--cyan);
+            color: var(--white);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--navy), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 60px;
+        }
+
+        /* ==================================================
+           1. PRELOADER
+           ================================================== */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background: var(--white);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .preloader-logo { width: 150px; opacity: 0; }
+        .preloader-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            opacity: 0;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        /* ==================================================
+           2. NAVBAR
+           ================================================== */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 5%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        nav.scrolled {
+            padding: 15px 5%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+        .logo-container img { height: 40px; }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links li a {
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            position: relative;
+        }
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 0; width: 0%; height: 2px;
+            background: var(--orange);
+            transition: var(--transition);
+        }
+        .nav-links li a:hover::after { width: 100%; }
+        
+        .hamburger { display: none; cursor: pointer; }
+        .hamburger div { width: 25px; height: 2px; background: var(--navy); margin: 5px; transition: 0.3s; }
+
+        /* ==================================================
+           3. HERO
+           ================================================== */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .hero-text h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .hero-hindi {
+            font-size: 1.5rem;
+            color: var(--orange);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .hero-desc {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+        .hero-buttons { display: flex; gap: 20px; }
+
+        .hero-visual {
+            position: relative;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+        .founder-3d-wrapper {
+            width: 350px;
+            height: 350px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .founder-img {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 30px 60px rgba(6, 35, 63, 0.2);
+            border: 8px solid var(--white);
+            position: relative;
+            z-index: 2;
+        }
+        .hero-ring {
+            position: absolute;
+            top: -20px; left: -20px; right: -20px; bottom: -20px;
+            border: 2px dashed var(--cyan);
+            border-radius: 50%;
+            animation: spin 20s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .floating-word {
+            position: absolute;
+            background: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 12px;
+            box-shadow: var(--shadow-3d);
+            z-index: 3;
+            letter-spacing: 1px;
+        }
+        .fw-1 { top: 10%; left: -10%; color: var(--navy); transform: translateZ(50px); }
+        .fw-2 { top: 40%; right: -15%; color: var(--orange); transform: translateZ(80px); }
+        .fw-3 { bottom: 15%; left: 0%; color: var(--cyan); transform: translateZ(30px); }
+
+        /* ==================================================
+           4. WHAT WE DO
+           ================================================== */
+        #services { padding: 120px 0; background: var(--light-grey); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+        }
+        .service-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-3d);
+            transform-style: preserve-3d;
+            transition: transform 0.1s;
+            position: relative;
+            border: 1px solid transparent;
+        }
+        .service-card:hover {
+            border-color: var(--cyan);
+        }
+        .service-num { font-size: 3rem; font-weight: 800; color: rgba(19, 175, 195, 0.1); margin-bottom: 20px; font-family: 'Space Grotesk'; }
+        .service-card h3 { font-size: 1.5rem; margin-bottom: 15px; transform: translateZ(30px); }
+        .service-card p { color: #666; transform: translateZ(20px); }
+
+        /* ==================================================
+           5. FEATURED PROJECT
+           ================================================== */
+        #featured { padding: 120px 0; }
+        .featured-wrapper {
+            background: var(--navy);
+            border-radius: 30px;
+            padding: 80px 5%;
+            color: var(--white);
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .featured-info h2 { font-size: 3rem; margin-bottom: 20px; color: var(--cyan); }
+        .tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+        .tag { background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; font-size: 12px; }
+        
+        .laptop-mockup {
+            width: 100%;
+            height: 400px;
+            background: #111;
+            border-radius: 20px 20px 0 0;
+            border: 10px solid #333;
+            border-bottom: 25px solid #222;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            overflow: hidden;
+            transform: perspective(1000px) rotateY(-15deg);
+            transition: var(--transition);
+        }
+        .laptop-mockup:hover { transform: perspective(1000px) rotateY(0deg); }
+        .laptop-mockup iframe { width: 100%; height: 100%; border: none; }
+
+        /* ==================================================
+           6. FEEDBACK & MODALS
+           ================================================== */
+        #feedback-btn {
+            position: fixed; bottom: 30px; right: 30px;
+            background: var(--white); color: var(--navy);
+            padding: 15px 25px; border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            font-weight: 800; cursor: pointer; z-index: 100;
+            border: 2px solid var(--light-grey);
+            transition: var(--transition);
+        }
+        #feedback-btn:hover { background: var(--orange); color: var(--white); }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(6, 35, 63, 0.8); backdrop-filter: blur(10px);
+            z-index: 2000; display: none; justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: var(--white); padding: 50px; border-radius: 20px;
+            width: 90%; max-width: 500px; position: relative;
+            transform: scale(0.8); opacity: 0;
+        }
+        .close-modal {
+            position: absolute; top: 20px; right: 20px; font-size: 24px; cursor: pointer; color: #999;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 15px; border: 1px solid #ddd;
+            border-radius: 10px; font-family: inherit; font-size: 14px;
+            background: var(--light-grey);
+        }
+        .rating { display: flex; gap: 10px; font-size: 24px; color: #ddd; cursor: pointer; margin-bottom: 20px; }
+        .rating span:hover, .rating span.active { color: var(--orange); }
+
+        /* ==================================================
+           7. PROJECT STORE
+           ================================================== */
+        #projects { padding: 120px 0; }
+        .filter-container { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        .filter-btn {
+            padding: 10px 20px; border-radius: 30px; border: 1px solid var(--navy);
+            background: transparent; cursor: pointer; font-weight: 600; transition: var(--transition);
+        }
+        .filter-btn.active, .filter-btn:hover { background: var(--navy); color: var(--white); }
+        
+        .project-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px;
+        }
+        .project-card {
+            background: var(--light-grey); border-radius: 20px; overflow: hidden;
+            box-shadow: var(--shadow-3d); transition: var(--transition); cursor: pointer;
+        }
+        .project-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(6,35,63,0.15); }
+        .project-img { height: 200px; background: var(--navy); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 2rem; font-family: 'Space Grotesk'; }
+        .project-info { padding: 25px; }
+        .project-cat { color: var(--orange); font-size: 12px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .project-info h3 { margin-bottom: 15px; }
+        
+        /* ==================================================
+           9. BUILD YOUR WEBSITE (FORM)
+           ================================================== */
+        #build { background: var(--navy); color: var(--white); padding: 120px 0; }
+        .build-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .build-text h2 { font-size: 4rem; color: var(--cyan); line-height: 1; margin-bottom: 20px; }
+        .build-form { background: var(--white); padding: 40px; border-radius: 20px; color: var(--navy); }
+
+        /* ==================================================
+           10. HOW WE WORK & 11. WHY NEXITE
+           ================================================== */
+        #process { padding: 120px 0; background: var(--light-grey); text-align: center; }
+        .process-steps {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 60px; position: relative; max-width: 1000px; margin-left: auto; margin-right: auto;
+        }
+        .process-steps::before {
+            content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 2px;
+            background: #ddd; z-index: 1;
+        }
+        .step {
+            position: relative; z-index: 2; background: var(--white); width: 100px; height: 100px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; box-shadow: var(--shadow-3d); border: 2px solid var(--cyan);
+            font-size: 12px;
+        }
+
+        #why { padding: 120px 0; }
+        .why-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .why-card {
+            width: 200px; height: 200px; background: var(--white); border-radius: 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-shadow: var(--shadow-3d); font-weight: 800; border: 1px solid var(--light-grey);
+            transition: var(--transition);
+        }
+        .why-card:hover { background: var(--navy); color: var(--white); transform: scale(1.05); }
+
+        /* ==================================================
+           13. FOUNDER
+           ================================================== */
+        #founder { padding: 120px 0; background: var(--light-grey); }
+        .founder-container { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; align-items: center; }
+        .founder-photo { width: 100%; max-width: 400px; border-radius: 20px; box-shadow: var(--shadow-3d); }
+        .founder-details h2 { font-size: 1.5rem; color: var(--orange); margin-bottom: 5px; }
+        .founder-details h3 { font-size: 3rem; margin-bottom: 20px; }
+
+        /* ==================================================
+           14. FINAL CTA & 15. CONTACT & FOOTER
+           ================================================== */
+        #cta { padding: 150px 0; text-align: center; background: var(--cyan); color: var(--white); }
+        #cta h2 { font-size: 4rem; margin-bottom: 40px; }
+
+        footer { background: var(--navy); color: var(--white); padding: 80px 0 30px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+        .footer-logo { width: 150px; filter: brightness(0) invert(1); margin-bottom: 20px; }
+        .footer-links h4 { color: var(--orange); margin-bottom: 20px; font-family: 'Space Grotesk'; }
+        .footer-links ul li { margin-bottom: 10px; }
+        .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; font-size: 14px; color: #888; }
+
+        /* ==================================================
+           18. MOBILE RESPONSIVENESS
+           ================================================== */
+        @media (max-width: 992px) {
+            .hero-grid, .featured-wrapper, .build-container, .founder-container, .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 3rem; }
+            .hero-buttons { justify-content: center; }
+            .hero-visual { height: 400px; }
+            .process-steps { flex-direction: column; gap: 40px; }
+            .process-steps::before { width: 2px; height: 100%; left: 50%; top: 0; }
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); flex-direction: column; padding: 20px; box-shadow: var(--shadow-3d); }
+            .nav-links.active { display: flex; }
+            .hamburger { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. PRELOADER -->
+    <div id="preloader">
+        <img src="11065.png" alt="Nexite Logo" class="preloader-logo">
+        <div class="preloader-text">IDEAS. CODE. GROWTH.</div>
+    </div>
+
+    <!-- 2. NAVBAR -->
+    <nav id="navbar">
+        <div class="logo-container">
+            <a href="#home"><img src="11065.png" alt="Nexite"></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#founder">About</a></li>
+        </ul>
+        <a href="#build" class="btn btn-primary" style="display: none;" id="nav-btn">START A PROJECT &rarr;</a>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+    <script>
+        function toggleMenu() { document.querySelector('.nav-links').classList.toggle('active'); }
+        if(window.innerWidth > 992) document.getElementById('nav-btn').style.display = 'inline-flex';
+    </script>
+
+    <!-- 3. HERO -->
+    <header id="home">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <h1 class="display-font">POWERING IDEAS.<br>BUILDING IMPACT.</h1>
+                <div class="hero-hindi">नई सोच। नई दिशा। बड़ा Impact.</div>
+                <p class="hero-desc">Nexite is a new-age digital company focused on building innovative websites, digital products and technology solutions that create real impact.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">EXPLORE OUR WORK &rarr;</a>
+                    <a href="#build" class="btn btn-secondary">START A PROJECT &rarr;</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="founder-3d-wrapper tilt-card">
+                    <div class="hero-ring"></div>
+                    <img src="11106.jpg" alt="Mahiey Parihar" class="founder-img">
+                    <div class="floating-word fw-1">IDEAS</div>
+                    <div class="floating-word fw-2">CODE</div>
+                    <div class="floating-word fw-3">GROWTH</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 4. WHAT WE DO -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title">WHAT WE DO</h2>
+            <p class="section-subtitle">Ideas into digital experiences.</p>
+            <div class="services-grid">
+                <div class="service-card tilt-card">
+                    <div class="service-num">01</div>
+                    <h3>WEBSITE DEVELOPMENT</h3>
+                    <p>Modern, fast & responsive websites tailored to your brand.</p>
+                </div>
+                <div class="service-card tilt-card">
+                    <div class="service-num">02</div>
+                    <h3>DIGITAL SOLUTIONS</h3>
+                    <p>Smart technology and robust architectures for modern businesses.</p>
+                </div>
+                <div class="service-card tilt-card">
+                    <div class="service-num">03</div>
+                    <h3>UI/UX DESIGN</h3>
+                    <p>Beautiful interfaces designed for better user experiences.</p>
+                </div>
+                <div class="service-card tilt-card">
+                    <div class="service-num">04</div>
+                    <h3>PROJECT DEVELOPMENT</h3>
+                    <p>Turning complex ideas into real, functional digital products.</p>
+                </div>
+                <div class="service-card tilt-card">
+                    <div class="service-num">05</div>
+                    <h3>SUPPORT & MAINTENANCE</h3>
+                    <p>Continuous technical support to keep you growing securely.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. FEATURED PROJECT -->
+    <section id="featured">
+        <div class="container">
+            <div class="featured-wrapper">
+                <div class="featured-info">
+                    <h3 style="color: var(--orange); letter-spacing: 2px;">FEATURED PROJECT</h3>
+                    <h2>MAHIEY AI</h2>
+                    <p>AI-powered digital experience seamlessly integrated into a modern web environment.</p>
+                    <div class="tags">
+                        <span class="tag">AI</span> <span class="tag">WEB</span> <span class="tag">MODERN UI</span> <span class="tag">DIGITAL PRODUCT</span>
+                    </div>
+                    <div style="margin-top: 30px; display: flex; gap: 15px;">
+                        <a href="https://mahieyai.vercel.app/" target="_blank" class="btn btn-primary">VIEW LIVE PROJECT &nearr;</a>
+                    </div>
+                </div>
+                <div class="laptop-mockup">
+                    <iframe src="https://mahieyai.vercel.app/" title="Mahiey AI Demo"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. PROJECT STORE -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">OUR PROJECTS</h2>
+            <p class="section-subtitle">Explore what we've built.</p>
+            
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="ai">AI</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="business">Business</button>
+            </div>
+
+            <div class="project-grid">
+                <div class="project-card" data-category="ai web" onclick="window.open('https://mahieyai.vercel.app/','_blank')">
+                    <div class="project-img">MAHIEY AI</div>
+                    <div class="project-info">
+                        <span class="project-cat">AI / Web</span>
+                        <h3>Mahiey AI Platform</h3>
+                        <p>Intelligent AI-powered digital interface.</p>
+                        <br><span style="color:var(--cyan); font-weight:700; font-size:14px;">VIEW PROJECT &rarr;</span>
+                    </div>
+                </div>
+                <div class="project-card" data-category="web business">
+                    <div class="project-img">E-COM PRO</div>
+                    <div class="project-info">
+                        <span class="project-cat">E-Commerce</span>
+                        <h3>Retail Web App</h3>
+                        <p>Scalable e-commerce solution.</p>
+                        <br><span style="color:var(--cyan); font-weight:700; font-size:14px;">VIEW PROJECT &rarr;</span>
+                    </div>
+                </div>
+                <div class="project-card" data-category="web">
+                    <div class="project-img">CORPORATE UX</div>
+                    <div class="project-info">
+                        <span class="project-cat">UI/UX / Web</span>
+                        <h3>Corporate Redesign</h3>
+                        <p>Modern interface for a finance firm.</p>
+                        <br><span style="color:var(--cyan); font-weight:700; font-size:14px;">VIEW PROJECT &rarr;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. BUILD YOUR WEBSITE -->
+    <section id="build">
+        <div class="container build-container">
+            <div class="build-text">
+                <h2>HAVE AN IDEA?</h2>
+                <h2>LET'S BUILD IT.</h2>
+                <p style="margin-top:20px; font-size: 1.2rem; color: #ccc;">Tell us what you need and we'll help turn your idea into a professional digital experience.</p>
+            </div>
+            <div class="build-form">
+                <form id="project-form" onsubmit="handleFormSubmit(event, 'REQUEST RECEIVED ✓\nWe\'ll review your requirements and get in touch.')">
+                    <div class="form-group"><input type="text" placeholder="NAME" required></div>
+                    <div class="form-group"><input type="email" placeholder="EMAIL" required></div>
+                    <div class="form-group"><input type="tel" placeholder="PHONE" required></div>
+                    <div class="form-group">
+                        <select required>
+                            <option value="">PROJECT TYPE</option>
+                            <option>Website</option>
+                            <option>Web App</option>
+                            <option>E-Commerce</option>
+                            <option>AI Project</option>
+                            <option>UI/UX</option>
+                            <option>Custom Software</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select required>
+                            <option value="">BUDGET</option>
+                            <option>Under ₹10,000</option>
+                            <option>₹10,000–₹25,000</option>
+                            <option>₹25,000–₹50,000</option>
+                            <option>₹50,000–₹1,00,000</option>
+                            <option>₹1,00,000+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="PROJECT REQUIREMENTS" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group"><input type="url" placeholder="REFERENCE WEBSITE (Optional)"></div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">SEND PROJECT REQUIREMENT &rarr;</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. HOW WE WORK -->
+    <section id="process">
+        <div class="container">
+            <h2 class="section-title">HOW WE WORK</h2>
+            <div class="process-steps">
+                <div class="step">IDEA</div>
+                <div class="step">DISCOVER</div>
+                <div class="step">DESIGN</div>
+                <div class="step">BUILD</div>
+                <div class="step">TEST</div>
+                <div class="step">DELIVER</div>
+                <div class="step" style="background:var(--navy); color:var(--white); border:none;">GROW</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. WHY NEXITE -->
+    <section id="why">
+        <div class="container text-center">
+            <h2 class="section-title" style="text-align:center; margin-bottom: 50px;">WHY NEXITE?</h2>
+            <div class="why-grid">
+                <div class="why-card">INNOVATION</div>
+                <div class="why-card">QUALITY</div>
+                <div class="why-card">PERFORMANCE</div>
+                <div class="why-card">SCALABILITY</div>
+                <div class="why-card">SUPPORT</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. FOUNDER INFORMATION -->
+    <section id="founder">
+        <div class="container founder-container">
+            <div>
+                <img src="11106.jpg" alt="Mahiey Parihar" class="founder-photo">
+            </div>
+            <div class="founder-details">
+                <h2>MEET THE FOUNDER</h2>
+                <h3 class="display-font">MAHIEY PARIHAR</h3>
+                <div style="font-weight: 800; color: var(--navy); margin-bottom: 20px; letter-spacing: 2px;">FOUNDER &middot; NEXITE</div>
+                <p style="font-size: 1.5rem; color: #555; line-height: 1.4;">
+                    BUILDING NEXITE WITH<br>
+                    <span style="color: var(--cyan); font-weight: 800;">IDEAS. CODE. GROWTH.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 14. FINAL CTA -->
+    <section id="cta">
+        <div class="container">
+            <h2 class="display-font">HAVE SOMETHING IN MIND?<br>LET'S BUILD IT TOGETHER.</h2>
+            <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
+                <a href="#build" class="btn" style="background:var(--white); color:var(--navy);">START A PROJECT &rarr;</a>
+                <a href="#projects" class="btn" style="background:transparent; border: 2px solid var(--white); color:var(--white);">EXPLORE OUR PROJECTS &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 16. UPDATED FOOTER -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <img src="11065.png" alt="Nexite" class="footer-logo">
+                    <p style="font-size: 1.2rem; font-weight:600;">Ideas. Code. Growth.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#projects">Store</a></li>
+                        <li><a href="#process">Process</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Social</h4>
+                    <ul>
+                        <li><a href="https://www.instagram.com/nexiteofficial?igsi=amNxdXYyd3Z6eXVh" target="_blank">Instagram</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>Email: <a href="mailto:pariharmahipal02@gmail.com">pariharmahipal02@gmail.com</a></li>
+                        <li>Phone: <a href="tel:+919257184454">+91 92571 84454</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Nexite. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- 6. PROJECT FEEDBACK (FLOATING BUTTON & MODAL) -->
+    <div id="feedback-btn" onclick="document.getElementById('feedback-modal').style.display='flex'; gsap.to('.modal-content', {scale:1, opacity:1, duration:0.4, ease:'back.out(1.7)'});">
+        💬 PROJECT FEEDBACK
+    </div>
+
+    <div class="modal-overlay" id="feedback-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeFeedbackModal()">&times;</span>
+            <h2 style="margin-bottom: 10px; color:var(--navy);">SHARE YOUR FEEDBACK</h2>
+            <p style="margin-bottom: 20px; color:#666; font-size:14px;">Your feedback helps us build better digital experiences.</p>
+            <form onsubmit="handleFormSubmit(event, 'FEEDBACK RECEIVED ✓\nThank you for your feedback.')">
+                <div class="form-group"><input type="text" placeholder="Name" required></div>
+                <div class="form-group"><input type="email" placeholder="Email" required></div>
+                <div class="form-group"><input type="text" placeholder="Project Name (e.g. Mahiey AI)" required></div>
+                <div class="rating" id="star-rating">
+                    <span data-value="1">&#9733;</span><span data-value="2">&#9733;</span><span data-value="3">&#9733;</span><span data-value="4">&#9733;</span><span data-value="5">&#9733;</span>
+                </div>
+                <div class="form-group"><textarea placeholder="Your Feedback" rows="4" required></textarea></div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">SUBMIT FEEDBACK</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================================================
+         INTERACTIVE SCRIPTS
+         ================================================== -->
+    <script>
+        // Preloader
+        window.addEventListener("load", () => {
+            const tl = gsap.timeline();
+            tl.to(".preloader-logo", { opacity: 1, duration: 0.5 })
+              .to(".preloader-text", { opacity: 1, duration: 0.5, y: -10 })
+              .to("#preloader", { y: "-100%", duration: 0.8, ease: "power4.inOut", delay: 0.8 })
+              .from(".hero-text > *", { y: 30, opacity: 0, duration: 0.8, stagger: 0.1 }, "-=0.4")
+              .from(".founder-3d-wrapper", { scale: 0.8, opacity: 0, duration: 1, ease: "back.out(1.5)" }, "-=0.8");
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener("scroll", () => {
+            const nav = document.getElementById("navbar");
+            if (window.scrollY > 50) nav.classList.add("scrolled");
+            else nav.classList.remove("scrolled");
+        });
+
+        // 3D Tilt Effect
+        if(window.innerWidth > 992) {
+            document.querySelectorAll('.tilt-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    let rect = card.getBoundingClientRect();
+                    let x = e.clientX - rect.left;
+                    let y = e.clientY - rect.top;
+                    let rotateX = ((y / rect.height) - 0.5) * -15;
+                    let rotateY = ((x / rect.width) - 0.5) * 15;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+                });
+            });
+        }
+
+        // GSAP Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+        const sections = ["#services", "#featured", "#projects", "#build", "#process", "#why", "#founder"];
+        sections.forEach(sec => {
+            gsap.from(sec + " .container", {
+                scrollTrigger: { trigger: sec, start: "top 80%" },
+                y: 50, opacity: 0, duration: 1, ease: "power3.out"
+            });
+        });
+
+        // Project Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filterValue = btn.getAttribute('data-filter');
+                projectCards.forEach(card => {
+                    if(filterValue === 'all' || card.getAttribute('data-category').includes(filterValue)) {
+                        card.style.display = 'block';
+                        gsap.fromTo(card, {scale: 0.8, opacity: 0}, {scale: 1, opacity: 1, duration: 0.4});
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Feedback Modal Logic
+        const stars = document.querySelectorAll('#star-rating span');
+        let currentRating = 0;
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                currentRating = this.getAttribute('data-value');
+                stars.forEach(s => s.classList.remove('active', 'selected'));
+                for(let i=0; i<currentRating; i++) {
+                    stars[i].classList.add('selected', 'active');
+                    stars[i].style.color = 'var(--orange)';
+                }
+                for(let i=currentRating; i<5; i++) {
+                    stars[i].style.color = '#ddd';
+                }
+            });
+        });
+
+        function closeFeedbackModal() {
+            gsap.to('.modal-content', {scale: 0.8, opacity: 0, duration: 0.3, onComplete: () => {
+                document.getElementById('feedback-modal').style.display = 'none';
+            }});
+        }
+
+        function handleFormSubmit(e, successMessage) {
+            e.preventDefault();
+            alert(successMessage);
+            e.target.reset();
+            if(e.target.closest('.modal-content')) {
+                closeFeedbackModal();
+            }
+        }
+    </script>
+</body>
+</html>
