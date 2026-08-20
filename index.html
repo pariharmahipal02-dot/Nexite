@@ -23,7 +23,7 @@
             --glass-bg: rgba(255, 255, 255, 0.85);
             --shadow-premium: 0 20px 40px rgba(6, 35, 63, 0.08);
             --shadow-hover: 0 30px 60px rgba(19, 175, 195, 0.15);
-            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Smoother global transition */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; cursor: none; }
@@ -48,23 +48,7 @@
         @media (max-width: 768px) { * { cursor: auto !important; } .cursor-dot, .cursor-outline { display: none; } }
 
         /* ==================================================
-           3. 100% WORKING CSS CIRCUIT PRELOADER 
-           ================================================== */
-        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--white); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
-        
-        .circuit-loader { position: relative; width: 120px; height: 120px; margin-bottom: 20px; }
-        .circuit-line { fill: none; stroke: var(--navy); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 200; stroke-dashoffset: 200; animation: drawLine 2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-        .circuit-line.orange { stroke: var(--orange); stroke-width: 5; animation-delay: 0.5s; }
-        .circuit-dot { fill: var(--cyan); opacity: 0; animation: popDot 0.5s ease forwards; }
-        
-        .preloader-text { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 800; letter-spacing: 4px; color: var(--navy); opacity: 0; transform: translateY(10px); animation: fadeUp 1s ease 1.5s forwards; }
-
-        @keyframes drawLine { to { stroke-dashoffset: 0; } }
-        @keyframes popDot { 0% { opacity: 0; transform: scale(0); } 100% { opacity: 1; transform: scale(1); } }
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-
-        /* ==================================================
-           4. ANIMATED BORDER CARDS (NEW FEATURE)
+           3. ANIMATED BORDER CARDS 
            ================================================== */
         .animated-border {
             position: relative; background: var(--white); border-radius: 24px; z-index: 1; overflow: hidden; isolation: isolate;
@@ -76,7 +60,7 @@
             animation: borderRotate 4s linear infinite; z-index: -2; opacity: 0.3; transition: var(--transition);
         }
         .animated-border::after {
-            content: ''; position: absolute; inset: 2px; /* Border thickness */
+            content: ''; position: absolute; inset: 2px;
             background: var(--white); border-radius: 22px; z-index: -1;
         }
         .animated-border:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
@@ -85,9 +69,11 @@
         @keyframes borderRotate { 100% { transform: rotate(360deg); } }
 
         /* ==================================================
-           5. NAVBAR & BUTTONS
+           4. NAVBAR & BUTTONS
            ================================================== */
-        .brand-logo { height: clamp(40px, 5vw, 50px); mix-blend-mode: darken; filter: contrast(1.1); }
+        .brand-logo { height: clamp(40px, 5vw, 50px); mix-blend-mode: darken; filter: contrast(1.1); transition: var(--transition); }
+        .brand-logo:hover { transform: scale(1.05); }
+
         nav { position: fixed; top: 0; width: 100%; padding: 25px 5vw; z-index: 1000; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); }
         nav.scrolled { padding: 15px 5vw; background: var(--glass-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .nav-links { display: flex; gap: clamp(20px, 3vw, 40px); align-items: center; }
@@ -96,17 +82,15 @@
         
         .btn { display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; border-radius: 50px; font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; transition: var(--transition); border: none; position: relative; overflow: hidden; z-index: 1; }
         .btn-primary { background: var(--navy); color: var(--white) !important; box-shadow: 0 10px 20px rgba(6, 35, 63, 0.15); }
-        .btn-primary:hover { background: var(--orange); box-shadow: 0 15px 30px rgba(255, 122, 0, 0.3); transform: translateY(-2px); }
-        .btn-secondary { background: var(--white); color: var(--navy); border: 2px solid var(--border-color); }
-        .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
-
+        .btn-primary:hover { background: var(--orange); box-shadow: 0 15px 30px rgba(255, 122, 0, 0.3); transform: translateY(-4px); }
+        
         .hamburger { display: none; cursor: pointer; z-index: 2000; }
         .hamburger div { width: 30px; height: 2px; background: var(--navy); margin: 6px 0; transition: 0.4s; }
 
         @media (max-width: 992px) { .nav-links, #nav-btn { display: none; } .hamburger { display: block; } }
 
         /* ==================================================
-           6. HERO SECTION & LIGHT LAUNCHPAD
+           5. HERO SECTION & LIGHT LAUNCHPAD
            ================================================== */
         #home { min-height: 100vh; display: flex; align-items: center; padding-top: 100px; }
         .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(30px, 5vw, 60px); align-items: center; }
@@ -128,7 +112,7 @@
         @media (max-width: 992px) { .hero-grid { grid-template-columns: 1fr; text-align: center; margin-top: 30px; } .hero-desc { margin: 0 auto 30px auto; } .hero-buttons { justify-content: center; } .launchpad-wrapper { margin-top: 40px; } }
 
         /* ==================================================
-           7. FEATURED PROJECT (LIGHT THEME)
+           6. FEATURED PROJECT 
            ================================================== */
         #featured { background: var(--white); }
         .featured-wrapper { display: grid; grid-template-columns: 1fr 1.5fr; gap: clamp(40px, 6vw, 80px); align-items: center; }
@@ -137,13 +121,13 @@
         .featured-info p { color: var(--grey-text); font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; }
         
         .laptop-mockup-wrapper { perspective: 1500px; }
-        .laptop-mockup { width: 100%; background: #f1f5f9; border-radius: 20px 20px 0 0; border: clamp(6px, 1vw, 12px) solid #e2e8f0; border-bottom: clamp(15px, 3vw, 30px) solid #cbd5e1; box-shadow: var(--shadow-premium); height: clamp(250px, 40vw, 500px); transform: rotateY(-10deg) rotateX(5deg); transition: transform 0.5s ease; }
-        .laptop-mockup:hover { transform: rotateY(0deg) rotateX(0deg); }
+        .laptop-mockup { width: 100%; background: #f1f5f9; border-radius: 20px 20px 0 0; border: clamp(6px, 1vw, 12px) solid #e2e8f0; border-bottom: clamp(15px, 3vw, 30px) solid #cbd5e1; box-shadow: var(--shadow-premium); height: clamp(250px, 40vw, 500px); transform: rotateY(-10deg) rotateX(5deg); transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .laptop-mockup:hover { transform: rotateY(0deg) rotateX(0deg) scale(1.02); }
         .laptop-mockup iframe { width: 100%; height: 100%; border: none; }
         @media (max-width: 992px) { .featured-wrapper { grid-template-columns: 1fr; text-align: center; } .laptop-mockup { transform: none; } }
 
         /* ==================================================
-           8. PROJECTS SECTION (ANIMATED BORDERS & LIGHT)
+           7. PROJECTS SECTION
            ================================================== */
         .section-header { text-align: center; margin-bottom: 60px; }
         .section-header h2 { font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--navy); margin-bottom: 10px; }
@@ -152,7 +136,7 @@
         .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; }
         .project-content { padding: 30px; position: relative; z-index: 2; }
         
-        .project-img { height: 220px; background: var(--light-bg); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-family: 'Space Grotesk'; font-weight: 800; color: var(--navy); position: relative; border-radius: 22px 22px 0 0;}
+        .project-img { height: 220px; background: var(--light-bg); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-family: 'Space Grotesk'; font-weight: 800; color: var(--navy); position: relative; border-radius: 22px 22px 0 0; transition: transform 0.6s ease; overflow: hidden;}
         .project-img::before { content:''; position:absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(45deg, rgba(19,175,195,0.1), rgba(255,122,0,0.1)); }
 
         .project-cat { color: var(--cyan); font-size: 12px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
@@ -163,29 +147,45 @@
         .coming-soon-card { filter: grayscale(100%); opacity: 0.7; pointer-events: none; }
 
         /* ==================================================
-           9. WORKSPACE PHOTOS
+           8. WORKSPACE PHOTOS (SMOOTH HOVERS)
            ================================================== */
         #workspace { background: var(--white); }
         .workspace-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .work-img-card { position: relative; border-radius: 24px; overflow: hidden; height: 350px; box-shadow: var(--shadow-premium); cursor: pointer; }
+        .work-img-card { position: relative; border-radius: 24px; overflow: hidden; height: 350px; box-shadow: var(--shadow-premium); cursor: pointer; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease; }
         .work-img-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
-        .work-img-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(6,35,63,0.9), transparent); display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; padding: 30px; color: var(--white); opacity: 0; transition: opacity 0.4s; }
-        .work-img-card:hover img { transform: scale(1.1); }
+        .work-img-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(6,35,63,0.95), transparent); display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; padding: 30px; color: var(--white); opacity: 0; transition: opacity 0.5s ease; }
+        
+        /* Ultra Smooth Hover Effects */
+        .work-img-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
+        .work-img-card:hover img { transform: scale(1.08); }
         .work-img-card:hover .work-img-overlay { opacity: 1; }
-        .work-img-overlay h3 { font-size: 1.5rem; margin-bottom: 5px; }
-        .work-img-overlay p { font-size: 0.9rem; color: var(--cyan); font-weight: 700; letter-spacing: 1px; }
+        
+        .work-img-overlay h3 { font-size: 1.5rem; margin-bottom: 5px; transform: translateY(10px); transition: transform 0.5s ease; }
+        .work-img-overlay p { font-size: 0.9rem; color: var(--cyan); font-weight: 700; letter-spacing: 1px; transform: translateY(10px); transition: transform 0.5s ease 0.1s; }
+        .work-img-card:hover .work-img-overlay h3, .work-img-card:hover .work-img-overlay p { transform: translateY(0); }
 
         /* ==================================================
-           10. FOUNDER SECTION (PREMIUM LIGHT)
+           9. BUILD FORM
+           ================================================== */
+        .build-box { padding: clamp(30px, 5vw, 50px); max-width: 700px; margin: 0 auto; }
+        .form-group { margin-bottom: 20px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 18px; border: 1px solid var(--border-color); border-radius: 12px; font-family: inherit; font-size: 15px; background: var(--light-bg); transition: var(--transition); color: var(--navy); }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--cyan); background: var(--white); outline: none; box-shadow: 0 0 0 4px rgba(19, 175, 195, 0.1); }
+
+        /* ==================================================
+           10. FOUNDER SECTION (SMOOTH PHOTO)
            ================================================== */
         #founder { background: var(--light-bg); }
         .founder-container { display: grid; grid-template-columns: 1fr 1.5fr; gap: clamp(40px, 6vw, 80px); align-items: center; }
-        .founder-img-wrapper { position: relative; }
-        .founder-photo { width: 100%; max-width: 380px; border-radius: 30px; box-shadow: var(--shadow-premium); position: relative; z-index: 2; border: 10px solid var(--white); }
+        .founder-img-wrapper { position: relative; display: flex; justify-content: center; }
+        
+        /* Smooth Founder Photo Hover */
+        .founder-photo { width: 100%; max-width: 380px; border-radius: 30px; box-shadow: var(--shadow-premium); position: relative; z-index: 2; border: 10px solid var(--white); transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease; }
+        .founder-photo:hover { transform: scale(1.04) rotate(-1deg); box-shadow: var(--shadow-hover); }
         
         .f-badge { position: absolute; background: var(--white); color: var(--navy); padding: 12px 24px; border-radius: 30px; font-weight: 800; font-size: 12px; box-shadow: var(--shadow-premium); z-index: 3; animation: float 5s ease-in-out infinite; border: 1px solid var(--border-color); letter-spacing: 1px;}
-        .f-badge-1 { top: 10%; right: -30px; animation-delay: 0s; color: var(--cyan); }
-        .f-badge-2 { bottom: 20%; left: -30px; animation-delay: 2s; color: var(--orange); }
+        .f-badge-1 { top: 10%; right: -20px; animation-delay: 0s; color: var(--cyan); }
+        .f-badge-2 { bottom: 20%; left: -20px; animation-delay: 2s; color: var(--orange); }
         
         .founder-details h2 { font-size: 1.2rem; color: var(--cyan); margin-bottom: 10px; letter-spacing: 2px; }
         .founder-details h3 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 10px; color: var(--navy); line-height: 1; }
@@ -194,23 +194,16 @@
         @media (max-width: 992px) { .founder-container { grid-template-columns: 1fr; text-align: center; } .founder-photo { margin: 0 auto; } .f-badge { display: none; } }
 
         /* ==================================================
-           11. BUILD FORM
-           ================================================== */
-        .build-box { padding: clamp(30px, 5vw, 50px); max-width: 700px; margin: 0 auto; }
-        .form-group { margin-bottom: 20px; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 18px; border: 1px solid var(--border-color); border-radius: 12px; font-family: inherit; font-size: 15px; background: var(--light-bg); transition: var(--transition); color: var(--navy); }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--cyan); background: var(--white); outline: none; box-shadow: 0 0 0 4px rgba(19, 175, 195, 0.1); }
-
-        /* ==================================================
-           12. CUSTOM TICKS & MODALS
+           11. MODALS & TICKS
            ================================================== */
         .custom-tick { display: inline-block; width: 20px; height: 20px; background: rgba(19, 175, 195, 0.1); border-radius: 50%; text-align: center; line-height: 20px; color: var(--cyan); font-size: 12px; font-weight: bold; margin-right: 10px; }
         
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(6, 35, 63, 0.8); backdrop-filter: blur(10px); z-index: 3000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
-        .modal-content { background: var(--white); padding: clamp(30px, 5vw, 50px); border-radius: 24px; width: 90%; max-width: 600px; position: relative; box-shadow: var(--shadow-premium); transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); max-height: 90vh; overflow-y: auto; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(6, 35, 63, 0.8); backdrop-filter: blur(10px); z-index: 3000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s ease; }
+        .modal-content { background: var(--white); padding: clamp(30px, 5vw, 50px); border-radius: 24px; width: 90%; max-width: 600px; position: relative; box-shadow: var(--shadow-premium); transform: scale(0.9) translateY(20px); transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); max-height: 90vh; overflow-y: auto; }
         .modal-overlay.active { display: flex; opacity: 1; }
-        .modal-overlay.active .modal-content { transform: scale(1); }
-        .close-modal { position: absolute; top: 20px; right: 25px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; }
+        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
+        .close-modal { position: absolute; top: 20px; right: 25px; font-size: 30px; cursor: pointer; color: #999; line-height: 1; transition: color 0.3s; }
+        .close-modal:hover { color: var(--orange); }
         
         .pm-tags { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
         .pm-tags span { background: rgba(19, 175, 195, 0.1); color: var(--cyan); padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: 700; }
@@ -219,16 +212,30 @@
         .pm-features li { margin-bottom: 12px; display: flex; align-items: center; color: var(--navy); font-weight: 500; }
 
         #feedback-btn { position: fixed; bottom: 30px; right: 30px; background: var(--navy); color: var(--white); padding: 15px 25px; border-radius: 50px; box-shadow: var(--shadow-premium); font-weight: 800; z-index: 900; transition: var(--transition); border: 2px solid var(--navy); }
-        #feedback-btn:hover { background: var(--orange); border-color: var(--orange); transform: scale(1.05); }
+        #feedback-btn:hover { background: var(--orange); border-color: var(--orange); transform: scale(1.05) translateY(-5px); box-shadow: var(--shadow-hover); }
 
+        /* ==================================================
+           12. FOOTER
+           ================================================== */
         footer { background: var(--navy); color: var(--white); padding: 80px 0 30px; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: clamp(30px, 4vw, 50px); margin-bottom: 60px; }
-        .footer-logo-box { background: var(--white); padding: 12px 20px; border-radius: 15px; display: inline-block; margin-bottom: 20px; }
+        .footer-logo-box { background: var(--white); padding: 12px 20px; border-radius: 15px; display: inline-block; margin-bottom: 20px; transition: transform 0.4s ease; }
+        .footer-logo-box:hover { transform: scale(1.05); }
         .footer-logo { height: 40px; mix-blend-mode: darken; object-fit: contain; }
         .footer-links h4 { color: var(--cyan); margin-bottom: 25px; font-family: 'Space Grotesk'; font-size: 1.2rem; }
-        .footer-links ul li { margin-bottom: 15px; color: #cbd5e1; }
+        .footer-links ul li { margin-bottom: 15px; color: #cbd5e1; transition: color 0.3s ease; }
+        .footer-links ul li a:hover { color: var(--orange); }
         .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; font-size: 14px; color: #94a3b8; }
         @media (max-width: 992px) { .footer-grid { grid-template-columns: 1fr; text-align: center; } .footer-logo-box { display: flex; margin: 0 auto 20px auto; width: fit-content; } }
+        
+        /* Mobile menu overlay styling */
+        .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); z-index: 1500; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: var(--transition); }
+        .mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
+        .mobile-menu-overlay ul { text-align: center; }
+        .mobile-menu-overlay ul li { margin: 20px 0; transform: translateY(20px); opacity: 0; transition: 0.4s; }
+        .mobile-menu-overlay.active ul li { transform: translateY(0); opacity: 1; }
+        .mobile-menu-overlay ul li a.menu-link { font-size: 2rem; font-family: 'Space Grotesk'; font-weight: 700; color: var(--navy); transition: color 0.3s; }
+        .mobile-menu-overlay ul li a.menu-link:hover { color: var(--orange); }
     </style>
 </head>
 <body>
@@ -236,25 +243,6 @@
     <!-- CUSTOM CURSOR -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
-
-    <!-- 100% WORKING PURE CSS CIRCUIT PRELOADER -->
-    <div id="preloader">
-        <svg viewBox="0 0 100 100" class="circuit-loader">
-            <!-- Background nodes -->
-            <circle cx="20" cy="80" r="3" fill="#cbd5e1" />
-            <circle cx="80" cy="20" r="3" fill="#cbd5e1" />
-            
-            <!-- Animated Drawing Lines (Forms the 'N' and Arrow) -->
-            <path class="circuit-line" d="M 20 80 L 20 20 L 50 50 L 80 20 L 80 80" />
-            <path class="circuit-line orange" d="M 50 50 L 80 20 L 90 30" />
-            
-            <!-- Animated Glowing Dots -->
-            <circle class="circuit-dot" cx="20" cy="20" r="4" style="animation-delay: 1.8s;" />
-            <circle class="circuit-dot" cx="50" cy="50" r="5" style="animation-delay: 2s;" />
-            <circle class="circuit-dot" cx="80" cy="20" r="6" style="animation-delay: 2.2s; fill: var(--orange);" />
-        </svg>
-        <div class="preloader-text">NEXITE</div>
-    </div>
 
     <!-- NAVBAR -->
     <nav id="navbar">
@@ -269,12 +257,27 @@
             <li><a href="#founder">About</a></li>
         </ul>
         <a href="#build" class="btn btn-primary" id="nav-btn">START A PROJECT &rarr;</a>
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+        </div>
     </nav>
+    
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <ul>
+            <li><a href="#home" class="menu-link" onclick="toggleMobileMenu()">Home</a></li>
+            <li><a href="#featured" class="menu-link" onclick="toggleMobileMenu()">Featured Project</a></li>
+            <li><a href="#projects" class="menu-link" onclick="toggleMobileMenu()">Projects</a></li>
+            <li><a href="#workspace" class="menu-link" onclick="toggleMobileMenu()">Our Culture</a></li>
+            <li><a href="#founder" class="menu-link" onclick="toggleMobileMenu()">About</a></li>
+            <li style="margin-top: 40px;"><a href="#build" class="btn btn-primary" onclick="toggleMobileMenu()">START A PROJECT</a></li>
+        </ul>
+    </div>
 
     <!-- HERO SECTION & LIGHT LAUNCHPAD -->
     <header id="home">
         <div class="container hero-grid">
-            <div class="hero-text gsap-reveal">
+            <div class="hero-text gsap-hero-reveal">
                 <h1 class="display-font">POWERING IDEAS.<br>BUILDING IMPACT.</h1>
                 <div class="hero-hindi">नई सोच। नई दिशा। बड़ा Impact.</div>
                 <p class="hero-desc">Nexite is a new-age digital company focused on building innovative websites, digital products, and technology solutions that create real impact.</p>
@@ -283,8 +286,7 @@
                 </div>
             </div>
             
-            <div class="launchpad-wrapper gsap-reveal">
-                <!-- ANIMATED BORDER LAUNCHPAD -->
+            <div class="launchpad-wrapper gsap-hero-reveal">
                 <div class="animated-border">
                     <div class="lp-content">
                         <div class="lp-header">
@@ -309,7 +311,7 @@
         </div>
     </header>
 
-    <!-- FEATURED PROJECT (LIGHT THEME) -->
+    <!-- FEATURED PROJECT -->
     <section id="featured">
         <div class="container">
             <div class="featured-wrapper">
@@ -333,7 +335,7 @@
         </div>
     </section>
 
-    <!-- PROJECTS SECTION (ANIMATED BORDERS & LIGHT THEME) -->
+    <!-- PROJECTS SECTION -->
     <section id="projects" style="background: var(--light-bg);">
         <div class="container">
             <div class="section-header gsap-reveal">
@@ -380,7 +382,7 @@
         </div>
     </section>
 
-    <!-- WORKSPACE / CULTURE -->
+    <!-- WORKSPACE / CULTURE (SUPER SMOOTH HOVERS) -->
     <section id="workspace" style="background: var(--white);">
         <div class="container">
             <div class="section-header gsap-reveal">
@@ -433,13 +435,14 @@
         </div>
     </section>
 
-    <!-- PREMIUM FOUNDER SECTION -->
+    <!-- PREMIUM FOUNDER SECTION (SMOOTH PHOTO) -->
     <section id="founder" style="background: var(--white);">
         <div class="container gsap-reveal">
             <div class="founder-container">
                 <div class="founder-img-wrapper">
                     <div class="f-badge f-badge-1">IDEAS. CODE. GROWTH.</div>
                     <div class="f-badge f-badge-2">100% IMPACT</div>
+                    <!-- Photo has ultra smooth zoom & slight rotate on hover -->
                     <img src="11106.jpg" alt="Mahiey Parihar" class="founder-photo">
                 </div>
                 
@@ -518,15 +521,16 @@
 
     <!-- SCRIPTS -->
     <script>
-        // 100% Guaranteed Preloader
-        window.addEventListener("load", () => {
-            // The CSS animation takes exactly 2.5s to finish drawing and glowing
-            setTimeout(() => {
-                const tl = gsap.timeline();
-                tl.to("#preloader", { y: "-100%", duration: 0.8, ease: "power4.inOut" })
-                  .from(".hero-text > *", { y: 30, opacity: 0, duration: 0.8, stagger: 0.1 }, "-=0.4")
-                  .from(".launchpad-wrapper", { scale: 0.9, opacity: 0, duration: 0.8, ease: "back.out(1.5)" }, "-=0.6");
-            }, 3000); 
+        // INSTANT LOAD ANIMATION (No Preloader Wait)
+        window.addEventListener("DOMContentLoaded", () => {
+            const tl = gsap.timeline();
+            tl.from(".gsap-hero-reveal", { 
+                y: 40, 
+                opacity: 0, 
+                duration: 1.2, 
+                stagger: 0.2, 
+                ease: "power3.out" 
+            });
         });
 
         // Mobile Menu
@@ -558,7 +562,7 @@
             cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
             cursorOutline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
         });
-        document.querySelectorAll('a, button, .btn, .animated-border.active-project, .close-modal, .work-img-card, .launchpad-box').forEach(el => {
+        document.querySelectorAll('a, button, .btn, .animated-border.active-project, .close-modal, .work-img-card, .launchpad-box, .founder-photo').forEach(el => {
             el.addEventListener('mouseenter', () => { cursorOutline.style.width = '60px'; cursorOutline.style.height = '60px'; cursorOutline.style.borderColor = 'var(--orange)'; });
             el.addEventListener('mouseleave', () => { cursorOutline.style.width = '40px'; cursorOutline.style.height = '40px'; cursorOutline.style.borderColor = 'var(--navy)'; });
         });
@@ -569,10 +573,16 @@
             if (window.scrollY > 50) nav.classList.add("scrolled"); else nav.classList.remove("scrolled");
         });
 
-        // Extra Smooth GSAP Animations
+        // Extra Smooth GSAP Animations on Scroll
         gsap.registerPlugin(ScrollTrigger);
         document.querySelectorAll('.gsap-reveal').forEach((el) => {
-            gsap.from(el, { scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" }, y: 50, opacity: 0, duration: 1, ease: "power3.out" });
+            gsap.from(el, { 
+                scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" }, 
+                y: 50, 
+                opacity: 0, 
+                duration: 1, 
+                ease: "power3.out" 
+            });
         });
     </script>
 </body>
