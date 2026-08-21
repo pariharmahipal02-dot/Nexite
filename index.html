@@ -357,16 +357,14 @@
                 <p>Premium solutions we are building.</p>
             </div>
             
-            <div class="project-grid">
-                <!-- 1. LIVE PROJECT (ANIMATED BORDER) -->
-                <div class="animated-border active-project gsap-reveal" onclick="openProjectModal('mahieyai')">
-                    <div class="project-img">MAHIEY AI</div>
+            <div class="project-grid" id="dynamic-project-grid">
+                <div class="animated-border gsap-reveal">
+                    <div class="project-img">LOADING...</div>
                     <div class="project-content">
-                        <span class="project-cat">AI / Web Experience</span>
-                        <h3 class="display-font">Mahiey AI Platform</h3>
-                        <p>Intelligent AI-powered digital interface.</p>
-                        <span style="color:var(--cyan); font-weight:800; font-size:13px; letter-spacing: 1px;">VIEW PROJECT &rarr;</span>
+                        <p style="color:var(--grey-text);">Loading projects...</p>
                     </div>
+                </div>
+            </div>
                 </div>
 
                 <!-- 2. COMING SOON -->
@@ -580,6 +578,94 @@
             el.addEventListener('mouseenter', () => { cursorOutline.style.width = '60px'; cursorOutline.style.height = '60px'; cursorOutline.style.borderColor = 'var(--orange)'; });
             el.addEventListener('mouseleave', () => { cursorOutline.style.width = '40px'; cursorOutline.style.height = '40px'; cursorOutline.style.borderColor = 'var(--navy)'; });
         });
+
+
+        // ============================================================
+        // DYNAMIC PROJECT LOADER
+        // Projects are controlled only from projects.json.
+        // Do NOT edit this index.html when adding future projects.
+        // ============================================================
+        async function loadProjects() {
+            const grid = document.getElementById('dynamic-project-grid');
+            if (!grid) return;
+
+            try {
+                const response = await fetch('projects.json', { cache: 'no-store' });
+                if (!response.ok) throw new Error('projects.json could not be loaded');
+
+                const projects = await response.json();
+                grid.innerHTML = '';
+
+                projects.forEach((project, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'animated-border gsap-reveal active-project';
+                    card.style.transitionDelay = `${index * 0.12}s`;
+
+                    const imageContent = project.image
+                        ? `<img src="${project.image}" alt="${escapeHtml(project.name)}" style="width:100%;height:100%;object-fit:cover;position:relative;z-index:2;">`
+                        : escapeHtml(project.shortName || project.name);
+
+                    card.innerHTML = `
+                        ${project.status && project.status !== 'LIVE'
+                            ? `<div class="coming-soon-badge">${escapeHtml(project.status)}</div>` : ''}
+                        <div class="project-img">${imageContent}</div>
+                        <div class="project-content">
+                            <span class="project-cat">${escapeHtml(project.category || 'Digital Project')}</span>
+                            <h3 class="display-font">${escapeHtml(project.name)}</h3>
+                            <p>${escapeHtml(project.description || '')}</p>
+                            <a href="${escapeAttr(project.url)}" target="_blank" rel="noopener noreferrer"
+                               class="project-open-link"
+                               style="color:var(--cyan);font-weight:800;font-size:13px;letter-spacing:1px;">
+                               VIEW PROJECT &rarr;
+                            </a>
+                        </div>
+                    `;
+
+                    grid.appendChild(card);
+                });
+
+                // Re-apply the existing scroll reveal to dynamically created cards.
+                if (window.gsap && window.ScrollTrigger) {
+                    grid.querySelectorAll('.gsap-reveal').forEach((el) => {
+                        gsap.from(el, {
+                            scrollTrigger: {
+                                trigger: el,
+                                start: "top 85%",
+                                toggleActions: "play none none none"
+                            },
+                            y: 50,
+                            opacity: 0,
+                            duration: 1,
+                            ease: "power3.out"
+                        });
+                    });
+                }
+            } catch (error) {
+                console.error('Project loader error:', error);
+                grid.innerHTML = `
+                    <div class="animated-border">
+                        <div class="project-content">
+                            <h3 class="display-font">Projects unavailable</h3>
+                            <p>Please make sure <strong>projects.json</strong> is uploaded beside index.html.</p>
+                        </div>
+                    </div>`;
+            }
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function escapeAttr(value) {
+            return escapeHtml(value);
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProjects);
 
         // Navbar Scroll
         window.addEventListener("scroll", () => {
