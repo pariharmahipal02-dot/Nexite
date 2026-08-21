@@ -147,6 +147,21 @@
         .section-header h2 { font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--navy); margin-bottom: 10px; }
         .section-header p { color: var(--cyan); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
         .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 50px; align-items: start; }
+        .live-launch-card { position:relative; overflow:hidden; }
+        .live-launch-card::before { content:""; position:absolute; width:260px; height:260px; right:-100px; top:-120px; border-radius:50%; background:radial-gradient(circle,rgba(19,175,195,.2),transparent 68%); animation:launchPulse 3s ease-in-out infinite; }
+        .live-launch-kicker { color:var(--orange); font-size:11px; font-weight:900; letter-spacing:2px; margin-bottom:10px; }
+        .live-launch-title { font-size:clamp(2rem,4vw,3.2rem); line-height:1; color:var(--navy); margin-bottom:12px; }
+        .live-launch-desc { color:var(--grey-text); line-height:1.7; margin-bottom:20px; }
+        .live-launch-tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:15px; }
+        .live-launch-tag { padding:6px 10px; border:1px solid var(--border-color); border-radius:20px; color:var(--navy); font-size:10px; font-weight:800; background:rgba(255,255,255,.7); }
+        .live-launch-check { color:var(--cyan); font-weight:900; }
+        @keyframes launchPulse { 0%,100%{transform:scale(.85);opacity:.45} 50%{transform:scale(1.1);opacity:.8} }
+        .project-details-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:0 0 22px; }
+        .project-detail-item { border-left:2px solid var(--cyan); padding:8px 10px; background:rgba(19,175,195,.04); }
+        .project-detail-label { display:block; font-size:9px; font-weight:900; letter-spacing:1.3px; color:var(--cyan); margin-bottom:3px; text-transform:uppercase; }
+        .project-detail-value { display:block; font-size:12px; font-weight:700; color:var(--navy); }
+        @media(max-width:700px){ .project-details-list{grid-template-columns:1fr} }
+
         .project-showcase-card { padding: 18px; overflow: hidden; }
         .project-content { padding: 28px 12px 12px; position: relative; z-index: 2; }
         .project-laptop-wrapper { perspective: 1500px; padding: 8px; }
@@ -325,23 +340,12 @@
             
             <div class="launchpad-wrapper gsap-hero-reveal">
                 <div class="animated-border">
-                    <div class="lp-content">
+                    <div id="live-launch-tracker" class="lp-content">
                         <div class="lp-header">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <div class="radar"></div> LIVE TRACKER
-                            </div>
+                            <div style="display:flex;align-items:center;gap:8px;"><div class="radar"></div> LIVE TRACKER</div>
                             <div>NEXITE LABS</div>
                         </div>
-                        <div class="lp-body">
-                            <h4>NEXT DIGITAL DROP</h4>
-                            <h2 class="display-font">MAHIEY AI 2.0</h2>
-                            <div style="color: var(--cyan); font-weight: 700; font-size: 13px; margin-bottom: 10px;">STATUS: FINAL TESTING</div>
-                            <div class="lp-bar-bg"><div class="lp-bar-fill"></div></div>
-                        </div>
-                        <div class="lp-footer">
-                            <span>ESTIMATED RELEASE</span>
-                            <span style="color: var(--orange); font-family: 'Space Grotesk'; font-size: 16px;">COMING LATE 2026</span>
-                        </div>
+                        <div class="lp-body"><h4>LOADING LATEST LAUNCH...</h4></div>
                     </div>
                 </div>
             </div>
@@ -372,57 +376,16 @@
         </div>
     </section>
 
-    <!-- NEWEST LAUNCH — AUTOMATICALLY CONTROLLED BY projects.json -->
-    <section id="newest-launch" style="background: var(--white);">
-        <div class="container">
-            <div class="section-header gsap-reveal">
-                <h2 class="display-font">LATEST LAUNCH</h2>
-                <p>Our newest digital product, now live.</p>
-            </div>
-            <div id="newest-launchpad"></div>
-        </div>
-    </section>
-
-    <!-- PROJECTS SECTION -->
+    <!-- PROJECTS SECTION — ONLY LAUNCHED PROJECTS -->
     <section id="projects" style="background: var(--light-bg);">
         <div class="container">
             <div class="section-header gsap-reveal">
-                <h2 class="display-font">DIGITAL SHOWCASE</h2>
-                <p>Premium solutions we are building.</p>
+                <h2 class="display-font">LAUNCHED PROJECTS</h2>
+                <p>Explore the digital products Nexite has already launched.</p>
             </div>
-            
             <div class="project-grid" id="dynamic-project-grid">
                 <div class="animated-border gsap-reveal">
-                    <div class="project-img">LOADING...</div>
-                    <div class="project-content">
-                        <p style="color:var(--grey-text);">Loading projects...</p>
-                    </div>
-                </div>
-            </div>
-                </div>
-
-                <!-- 2. COMING SOON -->
-                <div class="animated-border coming-soon-card gsap-reveal" style="transition-delay: 0.2s;">
-                    <div class="coming-soon-badge">COMING SOON</div>
-                    <div class="project-img">E-COM PRO</div>
-                    <div class="project-content">
-                        <span class="project-cat">E-Commerce Architecture</span>
-                        <h3 class="display-font">Retail Web App</h3>
-                        <p>Scalable e-commerce solution.</p>
-                        <span style="color:var(--grey-text); font-weight:800; font-size:13px;">LOCKED</span>
-                    </div>
-                </div>
-
-                <!-- 3. COMING SOON -->
-                <div class="animated-border coming-soon-card gsap-reveal" style="transition-delay: 0.4s;">
-                    <div class="coming-soon-badge">COMING SOON</div>
-                    <div class="project-img">UX DESIGN</div>
-                    <div class="project-content">
-                        <span class="project-cat">UI/UX Modernization</span>
-                        <h3 class="display-font">Corporate Redesign</h3>
-                        <p>Modern interface concept.</p>
-                        <span style="color:var(--grey-text); font-weight:800; font-size:13px;">LOCKED</span>
-                    </div>
+                    <div class="project-content"><p style="color:var(--grey-text);">Loading launched projects...</p></div>
                 </div>
             </div>
         </div>
@@ -621,123 +584,96 @@
         // ============================================================
         async function loadProjects() {
             const grid = document.getElementById('dynamic-project-grid');
-            if (!grid) return;
-
+            const tracker = document.getElementById('live-launch-tracker');
             try {
                 const response = await fetch('projects.json', { cache: 'no-store' });
                 if (!response.ok) throw new Error('projects.json could not be loaded');
+                const allProjects = await response.json();
 
-                const projects = await response.json();
-                grid.innerHTML = '';
+                // Only projects explicitly marked LIVE are shown in the showcase.
+                const launched = allProjects.filter(p => String(p.status || '').toUpperCase() === 'LIVE');
+                const newest = allProjects.find(p => p.isNewestLaunch === true) || launched[0];
 
-                const newest = projects.find(p => p.isNewestLaunch === true) || projects[0];
-                const launchpad = document.getElementById('newest-launchpad');
-                if (newest && launchpad) {
-                    launchpad.innerHTML = `
-                        <div class="animated-border newest-launch-card gsap-reveal">
-                            <div class="newest-launch-grid">
-                                <div>
-                                    <div class="newest-launch-kicker">🚀 NEWEST NEXITE LAUNCH</div>
-                                    <h3 class="display-font newest-launch-title">${escapeHtml(newest.name)}</h3>
-                                    <div class="newest-launch-status">
-                                        <span class="newest-launch-dot"></span>
-                                        ${escapeHtml((newest.launch && newest.launch.statusText) || 'NOW LIVE')}
-                                    </div>
-                                    <p class="newest-launch-desc">${escapeHtml(newest.description || '')}</p>
-                                    <a href="${escapeAttr(newest.url)}" target="_blank" rel="noopener noreferrer"
-                                       class="btn btn-primary">EXPLORE PROJECT ↗</a>
-                                </div>
-                                <div class="newest-launch-preview">
-                                    <div class="newest-launch-screen">
-                                        <iframe src="${escapeAttr(newest.url)}"
-                                            title="${escapeHtml(newest.name)} live preview"
-                                            loading="lazy" allow="fullscreen"
-                                            referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                                    </div>
-                                </div>
+                if (tracker && newest) {
+                    const tags = newest.tags || [];
+                    tracker.innerHTML = `
+                        <div class="lp-header">
+                            <div style="display:flex;align-items:center;gap:8px;"><div class="radar"></div> LIVE TRACKER</div>
+                            <div>NEXITE LABS</div>
+                        </div>
+                        <div class="lp-body live-launch-card">
+                            <div class="live-launch-kicker">🚀 NEWLY LAUNCHED • NOW LIVE</div>
+                            <h4>NEW DIGITAL PRODUCT</h4>
+                            <h2 class="display-font live-launch-title">${escapeHtml(newest.name)}</h2>
+                            <p class="live-launch-desc">${escapeHtml(newest.description || '')}</p>
+                            <div class="live-launch-status" style="color:var(--cyan);font-weight:900;font-size:12px;letter-spacing:1px;">
+                                <span class="live-launch-check">●</span> ${escapeHtml((newest.launch && newest.launch.statusText) || 'LIVE NOW')}
                             </div>
+                            <div class="live-launch-tags">
+                                ${tags.slice(0,4).map(t => `<span class="live-launch-tag">${escapeHtml(t)}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div class="lp-footer">
+                            <span>LAUNCHED PROJECT</span>
+                            <a href="${escapeAttr(newest.url)}" target="_blank" rel="noopener noreferrer"
+                               style="color:var(--orange);font-family:'Space Grotesk';font-size:16px;font-weight:900;">EXPLORE ↗</a>
                         </div>`;
                 }
 
-                projects.forEach((project, index) => {
+                if (!grid) return;
+                grid.innerHTML = '';
+
+                launched.forEach((project, index) => {
                     const card = document.createElement('div');
                     card.className = 'animated-border gsap-reveal project-showcase-card';
                     card.style.transitionDelay = `${index * 0.12}s`;
 
-                    const isLive = String(project.status || 'LIVE').toUpperCase() === 'LIVE';
-
-                    if (isLive) {
-                        card.innerHTML = `
-                            <div class="project-laptop-wrapper">
-                                <div class="project-laptop">
-                                    <iframe src="${escapeAttr(project.url)}"
-                                        title="${escapeHtml(project.name)} preview"
-                                        loading="lazy" allow="fullscreen"
-                                        referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                                </div>
+                    const details = project.details || [];
+                    const tags = project.tags || [];
+                    card.innerHTML = `
+                        <div class="project-laptop-wrapper">
+                            <div class="project-laptop">
+                                <iframe src="${escapeAttr(project.url)}"
+                                    title="${escapeHtml(project.name)} preview"
+                                    loading="lazy" allow="fullscreen"
+                                    referrerpolicy="strict-origin-when-cross-origin"></iframe>
                             </div>
-                            <div class="project-content">
-                                <span class="project-cat">${escapeHtml(project.category || 'Digital Project')}</span>
-                                <h3 class="display-font">${escapeHtml(project.name)}</h3>
-                                <p>${escapeHtml(project.description || '')}</p>
-                                <a href="${escapeAttr(project.url)}" target="_blank" rel="noopener noreferrer"
-                                   class="project-open-link"
-                                   style="color:var(--cyan);font-weight:800;font-size:13px;letter-spacing:1px;">
-                                   OPEN LIVE PROJECT ↗
-                                </a>
-                            </div>`;
-                    } else {
-                        const launch = project.launch || {};
-                        const progress = Math.min(100, Math.max(0, Number(launch.progress || 70)));
-
-                        card.innerHTML = `
-                            <div class="project-launchpad">
-                                <div class="animated-border project-launch-inner">
-                                    <div class="launch-status-row">
-                                        <span style="display:flex;align-items:center;gap:8px;">
-                                            <span class="launch-status-dot"></span> NEXITE LAUNCHPAD
-                                        </span>
-                                        <span>${escapeHtml(launch.label || 'NEXT DIGITAL DROP')}</span>
-                                    </div>
-                                    <div class="launch-project-subtitle">${escapeHtml(project.category || 'DIGITAL PROJECT')}</div>
-                                    <h3 class="display-font launch-project-title">${escapeHtml(project.name)}</h3>
-                                    <p style="color:var(--grey-text);line-height:1.7;margin-bottom:5px;">
-                                        ${escapeHtml(project.description || 'A new Nexite digital experience is being prepared.')}
-                                    </p>
-                                    <div class="launch-progress"><span style="width:${progress}%"></span></div>
-                                    <div class="launch-meta">
-                                        <span>STATUS: ${escapeHtml(launch.statusText || 'FINAL TESTING')}</span>
-                                        <span style="color:var(--orange);">${escapeHtml(launch.release || 'COMING SOON')}</span>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="project-content">
+                            <span class="project-cat">${escapeHtml(project.category || 'DIGITAL PROJECT')} • LIVE</span>
+                            <h3 class="display-font">${escapeHtml(project.name)}</h3>
+                            <p>${escapeHtml(project.description || '')}</p>
+                            <div class="project-details-list">
+                                ${details.map(d => `
+                                    <div class="project-detail-item">
+                                        <span class="project-detail-label">${escapeHtml(d.label || 'DETAIL')}</span>
+                                        <span class="project-detail-value">${escapeHtml(d.value || '')}</span>
+                                    </div>`).join('')}
                             </div>
-                            <div class="project-content">
-                                <span class="project-cat">UPCOMING PROJECT</span>
-                                <h3 class="display-font">${escapeHtml(project.name)}</h3>
-                                <p>${escapeHtml(project.description || '')}</p>
-                            </div>`;
-                    }
-
+                            <div class="live-launch-tags" style="margin-bottom:20px;">
+                                ${tags.map(t => `<span class="live-launch-tag">${escapeHtml(t)}</span>`).join('')}
+                            </div>
+                            <a href="${escapeAttr(project.url)}" target="_blank" rel="noopener noreferrer"
+                               class="project-open-link"
+                               style="color:var(--cyan);font-weight:800;font-size:13px;letter-spacing:1px;">
+                               OPEN LIVE PROJECT ↗
+                            </a>
+                        </div>`;
                     grid.appendChild(card);
                 });
 
+                if (!launched.length) {
+                    grid.innerHTML = `<div class="animated-border"><div class="project-content"><h3 class="display-font">No launched projects yet</h3><p>New Nexite launches will appear here automatically.</p></div></div>`;
+                }
+
                 if (window.gsap && window.ScrollTrigger) {
                     grid.querySelectorAll('.gsap-reveal').forEach((el) => {
-                        gsap.from(el, {
-                            scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" },
-                            y: 50, opacity: 0, duration: 1, ease: "power3.out"
-                        });
+                        gsap.from(el, { scrollTrigger:{trigger:el,start:"top 85%",toggleActions:"play none none none"}, y:50, opacity:0, duration:1, ease:"power3.out" });
                     });
                 }
             } catch (error) {
                 console.error('Project loader error:', error);
-                grid.innerHTML = `
-                    <div class="animated-border">
-                        <div class="project-content">
-                            <h3 class="display-font">Projects unavailable</h3>
-                            <p>Please make sure <strong>projects.json</strong> is uploaded beside index.html.</p>
-                        </div>
-                    </div>`;
+                if (grid) grid.innerHTML = `<div class="animated-border"><div class="project-content"><h3 class="display-font">Projects unavailable</h3><p>Make sure projects.json is uploaded beside index.html.</p></div></div>`;
             }
         }
 
