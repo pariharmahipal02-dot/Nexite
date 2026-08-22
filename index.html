@@ -3,10 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexite | Ideas. Code. Growth.</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Nexite — Building Digital Products, AI Solutions & Modern Web Experiences</title>
+    <meta name="description" content="Nexite is a technology and digital product company building AI-powered tools, modern web applications, and practical digital solutions.">
+    <meta name="keywords" content="Nexite, Nexite India, technology company, digital product company, digital products, AI technology company, AI solutions, software development, web development, web applications, digital solutions, AI-powered applications, digital innovation">
+    <meta name="author" content="Nexite">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://nexite-pi.vercel.app/" />
 
     <!-- Google Search Console Verification Tag -->
     <meta name="google-site-verification" content="-rJq35mUQFmnfanMeO9_aG0I5tJIRGJtMoZlkKx9RW8" />
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:title" content="Nexite — Technology & Digital Product Company">
+    <meta property="og:description" content="Nexite is a technology and digital product company building AI-powered tools, modern web applications, and practical digital solutions.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nexite-pi.vercel.app/">
+    <meta property="og:image" content="https://nexite-pi.vercel.app/11065_2.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nexite — Technology & Digital Product Company">
+    <meta name="twitter:description" content="Nexite is a technology and digital product company building AI-powered tools, modern web applications, and practical digital solutions.">
+    <meta name="twitter:image" content="https://nexite-pi.vercel.app/11065_2.png">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Nexite",
+        "url": "https://nexite-pi.vercel.app/",
+        "description": "Technology & Digital Product Company"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Nexite",
+        "url": "https://nexite-pi.vercel.app/",
+        "logo": "https://nexite-pi.vercel.app/11065_2.png",
+        "founder": {
+          "@type": "Person",
+          "name": "Mahiey Parihar"
+        },
+        "sameAs": [
+          "https://www.instagram.com/nexiteofficial"
+        ]
+      }
+    ]
+    </script>
 
     <!-- Google Analytics 4 (GA4) Tag -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C7XT0DY8FB"></script>
@@ -14,7 +62,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-C7XT0DY8FB');
     </script>
 
@@ -37,14 +84,13 @@
             --glass-bg: rgba(255, 255, 255, 0.85);
             --shadow-premium: 0 20px 40px rgba(6, 35, 63, 0.08);
             --shadow-hover: 0 30px 60px rgba(19, 175, 195, 0.15);
-            --transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Smoother global transition */
+            --transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; cursor: none; }
         html { scroll-behavior: smooth; }
         
         body { background-color: var(--light-bg); color: var(--navy); overflow-x: hidden; position: relative; }
-        /* Premium Dot Matrix Background */
         body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(var(--border-color) 1px, transparent 1px); background-size: 30px 30px; z-index: -2; pointer-events: none; }
 
         h1, h2, h3, .display-font { font-family: 'Space Grotesk', sans-serif; }
@@ -108,7 +154,7 @@
            ================================================== */
         #home { min-height: 100vh; display: flex; align-items: center; padding-top: 100px; }
         .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(30px, 5vw, 60px); align-items: center; }
-        .hero-text h1 { font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.05; margin-bottom: 20px; color: var(--navy); }
+        .hero-text h1 { font-size: clamp(2.5rem, 4.5vw, 4.5rem); line-height: 1.1; margin-bottom: 20px; color: var(--navy); text-transform: uppercase; }
         .hero-hindi { font-size: clamp(1.2rem, 3vw, 1.8rem); color: var(--orange); font-weight: 700; margin-bottom: 20px; }
         .hero-desc { font-size: clamp(1rem, 2vw, 1.1rem); line-height: 1.8; color: var(--grey-text); margin-bottom: 40px; max-width: 500px; }
         
@@ -198,7 +244,7 @@
             .project-showcase-card:hover .project-laptop { transform:scale(1.01); }
         }
 
-/* ==================================================
+        /* ==================================================
            8. WORKSPACE PHOTOS (SMOOTH HOVERS)
            ================================================== */
         #workspace { background: var(--white); }
@@ -299,7 +345,7 @@
     <!-- NAVBAR -->
     <nav id="navbar">
         <div class="logo-container">
-            <a href="#home"><img src="11065_2.png" alt="Nexite" class="brand-logo"></a>
+            <a href="#home"><img src="11065_2.png" alt="Nexite technology company logo" class="brand-logo"></a>
         </div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
@@ -330,9 +376,9 @@
     <header id="home">
         <div class="container hero-grid">
             <div class="hero-text gsap-hero-reveal">
-                <h1 class="display-font">POWERING IDEAS.<br>BUILDING IMPACT.</h1>
+                <h1 class="display-font">NEXITE &mdash;<br>BUILDING DIGITAL PRODUCTS, AI SOLUTIONS & MODERN WEB EXPERIENCES</h1>
                 <div class="hero-hindi">नई सोच। नई दिशा। बड़ा Impact.</div>
-                <p class="hero-desc">Nexite is a new-age digital company focused on building innovative websites, digital products, and technology solutions that create real impact.</p>
+                <p class="hero-desc">Nexite is a technology and digital product company building AI-powered tools, modern web applications, and practical digital solutions.</p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">EXPLORE OUR WORK &rarr;</a>
                 </div>
@@ -358,18 +404,18 @@
             <div class="featured-wrapper">
                 <div class="featured-info gsap-reveal">
                     <h3 class="display-font">FEATURED WORK</h3>
-                    <h2 class="display-font">MAHIEY AI</h2>
-                    <p>An intelligent, AI-powered digital experience seamlessly integrated into a modern web environment. Built with next-generation UI principles.</p>
+                    <h2 class="display-font">NEXITE AI</h2>
+                    <p>AI-Powered Image Studio. Create, edit, enhance, compress and transform images with powerful AI-powered tools integrated into a modern web environment.</p>
                     <div style="display: flex; gap: 15px; margin-bottom: 30px;">
                         <span style="background: rgba(19, 175, 195, 0.1); color: var(--cyan); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 800;">AI INTEGRATION</span>
                         <span style="background: rgba(255, 122, 0, 0.1); color: var(--orange); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 800;">WEB UI</span>
                     </div>
-                    <button class="btn btn-primary" onclick="openProjectModal('mahieyai')">VIEW PROJECT DETAILS &rarr;</button>
+                    <button class="btn btn-primary" onclick="openProjectModal('nexiteai')">VIEW PROJECT DETAILS &rarr;</button>
                 </div>
                 
                 <div class="laptop-mockup-wrapper gsap-reveal">
                     <div class="laptop-mockup">
-                        <iframe src="https://mahieyai.vercel.app/" title="Mahiey AI Demo"></iframe>
+                        <iframe src="https://mahieyai.vercel.app/" title="Nexite AI Demo"></iframe>
                     </div>
                 </div>
             </div>
@@ -401,19 +447,19 @@
             
             <div class="workspace-grid">
                 <div class="work-img-card gsap-reveal">
-                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Coding">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Clean Code Development">
                     <div class="work-img-overlay">
                         <h3 class="display-font">Clean Code</h3><p>DEVELOPMENT</p>
                     </div>
                 </div>
                 <div class="work-img-card gsap-reveal" style="transition-delay: 0.2s;">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Team Work">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Strategy and Planning Teamwork">
                     <div class="work-img-overlay">
                         <h3 class="display-font">Strategy & Planning</h3><p>BRAINSTORMING</p>
                     </div>
                 </div>
                 <div class="work-img-card gsap-reveal" style="transition-delay: 0.4s;">
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" alt="UI Design">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" alt="Pixel Perfect UI Design">
                     <div class="work-img-overlay">
                         <h3 class="display-font">Pixel Perfect UI</h3><p>DESIGN</p>
                     </div>
@@ -451,8 +497,7 @@
                 <div class="founder-img-wrapper">
                     <div class="f-badge f-badge-1">IDEAS. CODE. GROWTH.</div>
                     <div class="f-badge f-badge-2">100% IMPACT</div>
-                    <!-- Photo has ultra smooth zoom & slight rotate on hover -->
-                    <img src="11106.jpg" alt="Mahiey Parihar" class="founder-photo">
+                    <img src="11106.jpg" alt="Mahiey Parihar - Founder, Nexite" class="founder-photo">
                 </div>
                 
                 <div class="founder-details">
@@ -470,12 +515,12 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('project-modal')">&times;</span>
             <div class="pm-body">
-                <div class="pm-tags"><span>AI Integration</span> <span>Web Application</span> <span>Modern UI</span></div>
-                <h2 class="display-font">MAHIEY AI</h2>
-                <p style="color: var(--grey-text); line-height: 1.7; margin-bottom: 25px;">An intelligent, AI-powered digital experience seamlessly integrated into a modern web environment. Built with next-generation UI principles to deliver fast, responsive, and smart interactions.</p>
+                <div class="pm-tags"><span>AI Integration</span> <span>Web Application</span> <span>Image Tools</span></div>
+                <h2 class="display-font">NEXITE AI</h2>
+                <p style="color: var(--grey-text); line-height: 1.7; margin-bottom: 25px;">An AI-powered image studio seamlessly integrated into a modern web environment. Create, edit, enhance, compress and transform images with fast, responsive, and smart interactions.</p>
                 <ul class="pm-features">
-                    <li><span class="custom-tick">✓</span> Advanced AI Query Processing</li>
-                    <li><span class="custom-tick">✓</span> Responsive Dark/Light Layout</li>
+                    <li><span class="custom-tick">✓</span> AI Background Remover</li>
+                    <li><span class="custom-tick">✓</span> Image Compressor & Upscaler</li>
                     <li><span class="custom-tick">✓</span> Optimized for Speed & Performance</li>
                 </ul>
                 <a href="https://mahieyai.vercel.app/" target="_blank" class="btn btn-primary" style="width: 100%;">VIEW LIVE PROJECT ↗</a>
@@ -492,7 +537,7 @@
             <p style="margin-bottom: 20px; color:var(--grey-text); font-size:14px;">Your feedback helps us build better digital experiences.</p>
             <form onsubmit="event.preventDefault(); alert('FEEDBACK RECEIVED ✓\nThank you for your feedback.'); closeModal('feedback-modal');">
                 <div class="form-group"><input type="text" placeholder="Your Name" required></div>
-                <div class="form-group"><input type="text" placeholder="Project Name (e.g. Mahiey AI)" required></div>
+                <div class="form-group"><input type="text" placeholder="Project Name (e.g. Nexite AI)" required></div>
                 <div class="form-group"><textarea placeholder="Write your thoughts..." rows="4" required></textarea></div>
                 <button type="submit" class="btn btn-primary" style="width:100%;">SUBMIT FEEDBACK</button>
             </form>
@@ -505,9 +550,9 @@
             <div class="footer-grid">
                 <div>
                     <div class="footer-logo-box">
-                        <img src="11065_2.png" alt="Nexite" class="footer-logo brand-logo">
+                        <img src="11065_2.png" alt="Nexite Technology & Digital Product Company" class="footer-logo brand-logo">
                     </div>
-                    <p style="font-size: 1.1rem; font-weight:600; color:rgba(255,255,255,0.7);">Ideas. Code. Growth.</p>
+                    <p style="font-size: 1.1rem; font-weight:600; color:rgba(255,255,255,0.7);">Nexite — Technology & Digital Product Company</p>
                 </div>
                 <div class="footer-links">
                     <h4>Social</h4>
@@ -561,7 +606,7 @@
             document.body.style.overflow = 'auto';
         }
         function openProjectModal(projectId) {
-            if(projectId === 'mahieyai') openModal('project-modal');
+            if(projectId === 'nexiteai') openModal('project-modal');
         }
 
         // Custom Cursor
