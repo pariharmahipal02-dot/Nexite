@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Nexite AI",
+    "description": "An AI-powered image studio seamlessly integrated into a modern web environment. Create, edit, enhance, compress and transform images with fast, responsive, and smart interactions.",
+    "url": "https://ainexite.vercel.app/",
+    "status": "LIVE",
+    "isNewestLaunch": true,
+    "category": "AI PRODUCT",
+    "launch": {
+      "statusText": "LIVE NOW"
+    },
+    "tags": ["AI Integration", "Web Application", "Image Tools", "Fast UI"],
+    "details": [
+      { "label": "TYPE", "value": "AI Image Studio" },
+      { "label": "CAPABILITY", "value": "BG Remove, Edit, Compress" }
+    ]
+  },
+  {
+    "name": "Nexite Career Lab",
+    "description": "A smart platform designed to help students discover government exams, check eligibility instantly, and access useful educational tools.",
+    "url": "https://nexitecareerlab.vercel.app/",
+    "status": "LIVE",
+    "isNewestLaunch": false,
+    "category": "STUDENT PORTAL",
+    "launch": {
+      "statusText": "LIVE NOW"
+    },
+    "tags": ["Eligibility Engine", "Exam Radar", "Student Tools"],
+    "details": [
+      { "label": "TYPE", "value": "Career Platform" },
+      { "label": "TARGET", "value": "Government Exams" }
+    ]
+  }
+]
